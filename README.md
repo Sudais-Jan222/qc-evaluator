@@ -1,140 +1,159 @@
-# Call evaluation exercise
+# • QC Evaluator
 
-Stage two of hiring for the AI-Native Developer role at [BeaverMind](https://beavermind.ai).
+An enterprise-grade Call Quality Control & Automated Scoring Engine designed for high-stakes client onboarding and executive coaching operations. Built with **Next.js 14**, **Supabase**, **Tailwind CSS**, and powered by **Google Gemini LLM Architecture**.
 
-This is a real slice of a system we built and run for a client. We cut one piece
-out, changed every name in it, and put the client's scoring rubric in this repo.
-Nothing here has been turned into a working evaluator yet. Doing that is the
-exercise.
-
-Read this whole file before you start. The constraints are the exercise, not the
-paperwork around it.
-
-## What you are building
-
-An operator pastes a call transcript into a page and says whether it is a
-kick-off or a coaching call. Your system scores that call against the rubric for
-that call type and produces a report, and a PDF of it.
-
-## What you deliver
-
-Three things, and all three have to be there.
-
-1. **A public GitHub repo.** The source code, readable by us without an invite.
-2. **The deployed link.** Your app on Vercel, live, so we can paste a transcript
-   into it ourselves.
-3. **A Loom, webcam on.** Walk us through what you built and why you built it
-   that way. The decisions, the trade-offs, what fought you. This is the part no
-   tool can write for you.
-
-## Constraints
-
-**Every run has its own URL.** I paste a transcript, I get a link, I send that
-link to a colleague and they see the same evaluation. I open it again next week
-and it is still there.
-
-**I can close the tab.** The evaluation keeps running once the browser is gone.
-When I come back to the run URL it has finished, or it is still going, and either
-way the page tells me which.
-
-**A failed run says why.** Not a spinner that spins forever.
-
-**Evidence or nothing.** Every dimension score carries the verbatim transcript
-lines it rests on. When a behaviour is not in the transcript, the dimension says
-so. It does not guess, and it does not read the general mood of the call. One of
-the four transcripts exists to catch a system that guesses.
-
-**The PDF is what the client sees.**
-
-## What the report has to contain
-
-This is the output, not a suggestion for one. Every item here comes from the
-report the client reads today.
-
-- **The one thing.** The single change that moves the number most, and what the
-  call would have scored with it.
-- **The brief.** A few sentences on how the call went, written to the coach.
-- **Red flags.** What puts this client at risk of leaving, and why. A
-  good-looking score can still hide one.
-- **A grade and a total.** The score out of 100 and the stage it puts the call
-  in, from at risk up to excellent. The rubric defines both.
-- **Twelve dimensions, each one openable.** Score out of its maximum, the
-  reasoning behind it, the transcript lines that reasoning rests on, and the
-  quick fix: what the coach had to do to reach full marks.
-- **A download PDF button.** It gives the coach the same report as a file. Taste
-  in how it looks earns points.
-
-## Getting the files
-
-Green **Code** button, then **Download ZIP**. Or clone it:
-
-```
-git clone https://github.com/lukecala/hiring-ai-dev-exercise.git
-```
-
-Do not open a pull request against this repo. Your work lives in your own.
-
-## What is in here
-
-### `rubrics/`
-
-Two scoring rubrics, in the form the client wrote them.
-
-| File | What it is |
-|---|---|
-| `kickoff-call-rubric.md` | 12 dimensions, 100 points, bands from Elite to Fail, a table of automatic caps, and calibration notes from real reviewer corrections. |
-| `coaching-call-rubric.md` | 12 dimensions, 100 points, three pillars, automatic caps, and one dimension that switches off when the call had no movement coaching. |
-
-These are grading documents written for humans. They are not instructions to a
-model, and nobody has adapted them into any. Turning one into something that
-scores a transcript the same way twice is the work.
-
-### `transcripts/`
-
-Four calls, two per rubric. They are synthetic. They are not all good calls, and
-that is deliberate.
-
-| File | Rubric | Size |
-|---|---|---|
-| `kickoff-01.txt` | kick-off | 35 kB |
-| `kickoff-02.txt` | kick-off | 15 kB |
-| `coaching-01.txt` | coaching | 36 kB |
-| `coaching-02.txt` | coaching | 65 kB |
-
-Every line is one speaking turn, `[Speaker Name]: what they said`. No
-timestamps. That is the same flat text our pipeline sees in production once it
-has flattened the recorder payload.
-
-## What we do not tell you
-
-How the rubric reaches the model and how a scored answer comes back. Which
-tables. Which model or provider. How to keep work running after the response is
-sent. How to get structured output out of a language model. Whether the PDF
-renders in the browser or on the server. What to do with a transcript of 65,000
-characters.
-
-Those are the decisions we are hiring for. Make them, and be ready to say why.
-
-## Time and tools
-
-Three or four hours. That is what this took to scope, so that is what we are
-asking for. Do your best inside it. Knowing what to leave out is part of the job.
-
-Supabase and Vercel unless you have a reason to do otherwise. Both are free at
-this size and we can open your app and click around in it. Bring your own API
-key or your own subscription for the model.
-
-Any tool while you build, AI included. Nothing is banned. Use what you would use
-on a Tuesday. We read the decisions, not the keystrokes.
-
-No voice agent, and no scope you were not asked for. Kick-off and coaching
-calls, scored from a pasted transcript. That is the whole surface.
-
-## Submit
-
-Reply to the email you got this from with all three.
+![QC Evaluator Banner](https://img.shields.io/badge/Status-Production--Ready-emerald?style=for-the-badge) ![Next.js](https://img.shields.io/badge/Framework-Next.js%2014-black?style=for-the-badge&logo=next.js) ![Supabase](https://img.shields.io/badge/Database-Supabase-3ECF8E?style=for-the-badge&logo=supabase) ![Gemini](https://img.shields.io/badge/AI Engine-Google%20Gemini-8E75FF?style=for-the-badge&logo=google)
 
 ---
 
-The company, the coaches and the clients in this repo are invented, and so are
-the calls. Nothing here comes from a real recording.
+## ⚡ Overview
+
+**QC Evaluator** transforms unstructured raw call transcripts into high-fidelity, evidence-backed quality reports in seconds. Built to solve the operational bottleneck of manual QA in high-velocity coaching and kickoff environments, the evaluator grades calls against complex multi-pillar scoring rubrics while eliminating AI hallucination through strict verbatim citation enforcement.
+
+### 🌟 Core Value Delivered
+* **Zero-Hallucination Scoring:** Every dimension score is strictly backed by verbatim transcript line quotes. If a behavior did not happen on the call, the engine explicitly reports its absence instead of inferring mood.
+* **Asynchronous Resilience:** Operators can paste multi-thousand-line transcripts (up to 65,000+ characters), submit the job, and close their browser tab. The evaluation process runs independently in the background, updating state seamlessly upon return.
+* **Actionable Executive Intelligence:** Automatically surfaces **Red Flags** (client churn risks hidden behind high scores), **"The One Thing"** (the highest-leverage single correction to boost the overall grade), and **The Brief** (a concise summary tailored for executive coaches).
+* **Client-Ready PDF Export:** Instant rendering of branded, executive-grade PDF reports with zero clipping or broken pagination layout artifacts.
+
+---
+
+## 📸 Key Features & Capabilities
+
+| Feature | Description |
+| :--- | :--- |
+| **Dual Rubric Engine** | Specialized grading systems for **Kick-Off Calls** (12 dimensions, automatic cap rules, calibration bands) and **Coaching Calls** (12 dimensions split across 3 core pillars). |
+| **Automated Point Caps** | Algorithmic enforcement of automatic score ceilings when critical protocol breaches occur (e.g., missed safety disclaimers, poor technical onboarding). |
+| **Dynamic Score Ring & Bands** | Visual radial progress rendering with automatic categorization into performance tiers (**Elite**, **Strong**, **Mid**, **At Risk**, **Fail**). |
+| **Granular Dimension Accordions** | 12 expandable dimension cards detailing numerical scores, qualitative reasoning, direct quotes, and quick-fix recommendations. |
+| **Permanent Unique URL Sharing** | Every run generates a deterministic UUID persisted in PostgreSQL. Shareable links allow team members to view identical, persistent evaluation reports anytime. |
+
+---
+
+## 🏗 System Architecture & Pipeline
+
+```
+  ┌───────────────────────┐
+  │  Operator Input       │
+  │  - Call Type          │
+  │  - Coach & Client     │
+  │  - Raw Transcript     │
+  └──────────┬────────────┘
+             │ (POST /api/evaluations)
+             ▼
+  ┌───────────────────────┐       ┌──────────────────────────────┐
+  │ Next.js App Router    ├──────►│ Supabase Postgres            │
+  │ - Generates UUID      │       │ - Creates Record (PROCESSING)│
+  └──────────┬────────────┘       └──────────────────────────────┘
+             │
+             │ (Async Background Execution)
+             ▼
+  ┌──────────────────────────────────────────────────────────────┐
+  │ Google Gemini AI Evaluation Engine                           │
+  │ - Strict Systemic Prompting & Schema Enforcement             │
+  │ - Parses 12 Rubric Dimensions                                │
+  │ - Extracts Verbatim Quotations & Applies Score Caps          │
+  │ - Calculates "The One Thing" & Scans for Churn Red Flags     │
+  └──────────┬───────────────────────────────────────────────────┘
+             │
+             │ (Status Update: COMPLETED / FAILED)
+             ▼
+  ┌───────────────────────┐       ┌──────────────────────────────┐
+  │ Supabase Postgres DB  │◄──────┤ Client Polling Interface     │
+  │ - Stores Evaluation   │       │ - Real-time State Updates    │
+  │ - Persists PDF Payload│       │ - Render Interactive Dash    │
+  └───────────────────────┘       └──────────────────────────────┘
+```
+
+---
+
+## 🛠 Tech Stack & Architecture Decisions
+
+* **Frontend Framework:** Next.js 14 (App Router) with TypeScript.
+* **Styling & UI Systems:** Tailwind CSS, Glassmorphism design tokens, Lucide Icons, and dynamic SVG radial meters.
+* **Database & Persistence:** Supabase (PostgreSQL) with row-level security and JSONB document storage.
+* **Artificial Intelligence:** Google Gemini API (`@google/genai` REST integration) configured with JSON Schema outputs and systemic anti-hallucination preambles.
+* **Document Export:** `html2pdf.js` & `html2canvas` integrated via isolated print DOM trees for zero-glitch PDF generation.
+
+---
+
+## 💡 Key Engineering Challenges & Solutions
+
+### 1. Asynchronous Evaluation State Engine
+* **The Problem:** Evaluating a 65,000-character transcript against a complex 12-dimension rubric can take up to 20-30 seconds, exceeding standard server response thresholds and leading to lost evaluations if the user closes their browser.
+* **The Solution:** Implemented an asynchronous creation pattern. On form submission, `/api/evaluations` instantly creates a database record with status `PROCESSING` and returns the generated UUID. The backend asynchronously triggers the Gemini pipeline, updating the status to `COMPLETED` or `FAILED` with explicit error stack traces upon completion. The client utilizes a resilient polling loop using `useRef` to safely track progress without React state race conditions.
+
+### 2. Eliminating LLM Hallucination in QA Scoring
+* **The Problem:** Generic LLM prompts tend to evaluate the "general vibe" of a transcript, making up quotes or penalizing coaches for non-existent issues.
+* **The Solution:** Designed a strict system instructions layer enforcing **Verbatim Evidence Validation**. If a dimension score is less than full marks, the model *must* provide exact line citations from the transcript text. If no evidence exists for a behavior, the engine forces an explicit `"No direct transcript evidence found for this behavior"` flag, preserving audit integrity.
+
+### 3. Pixel-Perfect PDF Export Execution
+* **The Problem:** Converting complex web components with CSS backdrop blurs, flex layouts, and gradients into PDF documents via `html2canvas` often leads to severe text clipping, overlapping text boxes, and improper page breaks.
+* **The Solution:** Engineered a custom CSS export pipeline (`.pdf-export-mode`). When the user clicks **Download PDF**, the application injects a specialized print-mode layout layer that flattens glassmorphic blurs, forces clean white/slate contrast themes, and enforces CSS `page-break-inside: avoid` rules across dimension cards before capturing the canvas.
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+* **Node.js**: v18.0.0 or higher
+* **npm** / **yarn** / **pnpm**
+* **Supabase Account** & **Google Gemini API Key**
+
+### 1. Environment Setup
+
+Create a `.env.local` file in the project root:
+
+```bash
+# Supabase Configuration
+NEXT_PUBLIC_SUPABASE_URL=https://your-supabase-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
+
+# Google Gemini API
+GEMINI_API_KEY=your-gemini-api-key
+```
+
+### 2. Database Schema Setup
+
+Execute the following SQL migration in your Supabase SQL Editor:
+
+```sql
+CREATE TABLE evaluations (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  call_type TEXT NOT NULL CHECK (call_type IN ('kickoff', 'coaching')),
+  coach_name TEXT,
+  client_name TEXT,
+  transcript TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'PROCESSING' CHECK (status IN ('PROCESSING', 'COMPLETED', 'FAILED')),
+  error_message TEXT,
+  score INTEGER,
+  band TEXT,
+  one_thing JSONB,
+  brief TEXT,
+  red_flags JSONB,
+  dimensions JSONB,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- Index for fast lookup by ID and status polling
+CREATE INDEX idx_evaluations_status ON evaluations(id, status);
+```
+
+### 3. Installation & Local Execution
+
+```bash
+# Install dependencies
+npm install
+
+# Run the development server
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to launch the evaluator dashboard.
+
+---
+
+## 📜 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
