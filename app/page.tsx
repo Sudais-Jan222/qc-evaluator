@@ -68,7 +68,7 @@ export default function HomePage() {
             <Zap className="w-5 h-5 text-amber-300" />
           </div>
           <div>
-            <h1 className="font-extrabold text-lg tracking-tight">BeaverMind</h1>
+            <h1 className="font-extrabold text-lg tracking-tight">QC Evaluator</h1>
             <p className="text-xs text-[#71717A] font-medium tracking-wide">QC EVALUATION ENGINE</p>
           </div>
         </div>

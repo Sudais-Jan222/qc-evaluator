@@ -28,7 +28,7 @@ export async function generateWithGemini(options: GeminiGenerateOptions): Promis
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error('Missing GEMINI_API_KEY environment variable');
 
-  const model = options.model || process.env.GEMINI_MODEL || 'gemini-3.6-flash';
+  const model = options.model || process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite';
   const url = `${GEMINI_API_URL}/${model}:generateContent?key=${apiKey}`;
 
   const requestBody: Record<string, unknown> = {
